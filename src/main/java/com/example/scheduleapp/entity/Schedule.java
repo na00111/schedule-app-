@@ -1,5 +1,6 @@
 package com.example.scheduleapp.entity; //경로
 
+import com.example.scheduleapp.dto.ScheduleRequest;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -12,7 +13,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor (access = AccessLevel.PROTECTED)//기본 생성자(매개변수 없는)를 숨겨진 코드에 주입
 public class Schedule extends BaseEntity{
     @Id //데이터베이스 테이블의 식별자 -> 기본 키가 될 필드임을 지정
+    //기본키 -> 중복될 수 없는 유일한 키 VS 외래키 -> 다른 테이블의 기본키를 가리키는 연결고리
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    //id번호를 자동으로 생성
     private Long id;
 
     private String title;
@@ -31,6 +34,9 @@ public class Schedule extends BaseEntity{
 //    }
 public Schedule(ScheduleRequest request) {
     this.title = request.getTitle();
+    this.contents = request.getContents();
+    this.author = request.getAuthor();
+    this.password = request.getPassword();
 
 }
 
