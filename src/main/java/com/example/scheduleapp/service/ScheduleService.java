@@ -27,7 +27,7 @@ public class ScheduleService {
         //    this.password = request.getPassword();
         Schedule savedSchedule = scheduleRepository.save(schedule);
         //리포지토리에 저장
-        return  new ScheduleResponse(savedSchedule)
+        return  new ScheduleResponse(savedSchedule);
     }
     public List<ScheduleResponse> getSchedules(String author) {
         List<Schedule> schedules; //아직 초기화 안함.
@@ -58,7 +58,7 @@ public class ScheduleService {
                 .orElseThrow(() -> new IllegalArgumentException("해당 일정이 존재하지 않습니다. 아이디=" + id));
         if (!schedule.getPassword().equals(request.getPassword())) {
             throw new IllegalArgumentException("비밀번호가 일치하지 않습니다");
-            schedule.update(request.getTitle), request.getAuthor());
+            schedule.update(request.getTitle, request.getAuthor());
 return new ScheduleResponse(schedule);
         }
     }

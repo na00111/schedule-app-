@@ -22,7 +22,7 @@ public class ScheduleController {
     @PostMapping
     public ScheduleResponse createSchedule(@RequestBody ScheduleRequest request) {
         //타임 변수명 앞에 애노테이션이라는 옵션 스티커 붙인 것
-        return scheduleService.createSchedule(request)
+        return scheduleService.createSchedule(request);
     }
     //
     @GetMapping
