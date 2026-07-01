@@ -1,8 +1,12 @@
 package com.example.scheduleapp.controller;
 
+import com.example.scheduleapp.dto.ScheduleRequest;
 import com.example.scheduleapp.dto.ScheduleResponse;
 import com.example.scheduleapp.service.ScheduleService;
+import org.aspectj.lang.annotation.DeclareError;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 //JOSN 데이터를  받아서 DTO로 변환
 @RestController //이걸 써서 컨트롤러라고 알려주는 것
@@ -12,14 +16,33 @@ import org.springframework.web.bind.annotation.*;
 public class ScheduleController {
     private final ScheduleService scheduleService; //서비스 호출
 
-
-    }
     // 일정을 생성하는 api
     //  ScheduleService 임포트 되는 이유 -> 같은 프로젝트(폴더)안에 있어도 패키지(폴더)가 다르면 남남임.
 
     @PostMapping
-    public ScheduleResponse createSchedule(@RequestBody  ScheduleResponse response) {
-       //타임 변수명 앞에 애노테이션이라는 옵션 스티커 붙인 것
+    public ScheduleResponse createSchedule(@RequestBody ScheduleRequest request) {
+        //타임 변수명 앞에 애노테이션이라는 옵션 스티커 붙인 것
         return scheduleService.createSchedule(request)
     }
-}
+    //
+    @GetMapping
+    public List<ScheduleResponse> getSchedules(
+            @RequestParam(required = false) String author
+    ) {
+        return scheduleService.getSchedules(author);
+    }
+    @GetMapping("/{id}") //주소창 {id} 자리에 들어오는 숫자를 변수로 쓰겠다.
+    public ScheduleResponse getSchedule(@PathVariable Long id) {
+        //@PathVariable -> 주소창 경로에 있는 변수를 꺼내오는
+        return scheduleService.getSchedules(id);
+    }
+    @DeleteMapping("/{id}")
+    public  String deleteSchedule(
+            @PathVariable Long id,
+            @RequestParam String password
+    ) {
+        scheduleService.deleteSchedule(id, password);
+        return "삭제 완료";
+    }
+    }
+

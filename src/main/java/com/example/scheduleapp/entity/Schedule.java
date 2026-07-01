@@ -39,5 +39,9 @@ public Schedule(ScheduleRequest request) {
     this.password = request.getPassword();
 
 }
+public void update(String title, String author) {
+    this.title = title;
+    this.author = author;
+}
 
 }
