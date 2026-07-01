@@ -1,0 +1,22 @@
+package com.example.scheduleapp.controller;
+
+import com.example.scheduleapp.dto.CommentRequest;
+import com.example.scheduleapp.dto.CommentResponse;
+import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.*;
+
+@RestController
+@RequestMapping("/schedules")
+@RequiredArgsConstructor
+
+public class CommentController {
+    @PostMapping("/{scheduleId}/comments")
+    public CommentResponse createComment(
+            @PathVariable Long scheduleId, //주소창에서 일정 번호표를 꺼내서 담음
+            @RequestBody CommentRequest request //데이터를 꺼내서 담음
+             ) {
+        return commentService.createComment(scheduleId , request);
+        //서비스한테 리턴해줌
+
+    }
+}
